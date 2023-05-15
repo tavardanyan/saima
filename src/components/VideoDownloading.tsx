@@ -24,7 +24,7 @@ function VideoDownloading() {
     const { videoUrl, fileName } = videoData;
     setIsDownloading(true);
     let downloadedBytes = 0;
-    let totalBytes = 0;
+    // let totalBytes = 0;
     let chunks: Blob[] = [];
 
     const response = await axios.head(videoUrl);
@@ -43,7 +43,7 @@ function VideoDownloading() {
 
       const chunkBlob = chunkResponse.data;
       chunks.push(chunkBlob);
-      totalBytes += chunkBlob.size;
+      // totalBytes += chunkBlob.size;
       downloadedBytes += chunkBlob.size;
 
       setProgress(downloadedBytes / fileSize);
@@ -77,6 +77,7 @@ function VideoDownloading() {
     }
     fetchVideoData();
     handleDownload(); // automatically start the download when component is loaded
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   if (errorMessage) return <div>{errorMessage}</div>;
