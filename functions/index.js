@@ -21,8 +21,13 @@ import fs from 'node:fs';
 import ytdl from 'ytdl-core';
 import http from 'http';
 
-const server = http.createServer((req, res) => {
-  console.log('starting')
+const server = http.createServer(async (req, res) => {
+  const { formats } = await ytdl.getBasicInfo('https://www.youtube.com/watch?v=BJFkmXPZbF0');
+  const video = formats.find((format) => format.mimeType.split(';')[0] === 'video/mp4')
+  console.log(video);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ msg: 'ok', video}));
 });
 server.listen(8080, () => {
   console.log('starting')
@@ -34,8 +39,3 @@ server.listen(8080, () => {
 
 // Call the package method to test
 // myPackage.method();
-
-ytdl.getBasicInfo('https://www.youtube.com/watch?v=BJFkmXPZbF0').then((info) => {
-  const video = info.formats.find((format) => format.mimeType.split(';')[0] === 'video/mp4')
-  console.log(video);
-});
