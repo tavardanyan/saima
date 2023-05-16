@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "test": "mocha test --exit",
+    "build": "mocha test --exit"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +16,9 @@
     "ytdl-core": "^4.11.4"
   },
   "devDependencies": {
-    "debugging-aid": "^0.6.7"
+    "debugging-aid": "^0.6.7",
+    "chai": "4.3.7",
+    "mocha": "10.2.0",
+    "supertest": "6.3.3"
   }
 }

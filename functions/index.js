@@ -39,3 +39,5 @@ server.listen(8080, () => {
 
 // Call the package method to test
 // myPackage.method();
+
+export default server;
