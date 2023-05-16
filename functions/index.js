@@ -17,20 +17,14 @@
 // const app = initializeApp(firebaseConfig);
 
 // import 'TOOL';
-import fs from 'node:fs';
-import ytdl from 'ytdl-core';
-import http from 'http';
 
-const server = http.createServer(async (req, res) => {
-  const { formats } = await ytdl.getBasicInfo('https://www.youtube.com/watch?v=BJFkmXPZbF0');
-  const video = formats.find((format) => format.mimeType.split(';')[0] === 'video/mp4')
-  console.log(video);
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ msg: 'ok', video}));
-});
+import http from 'http';
+import app from './src/app';
+
+const server = http.createServer(app);
+
 server.listen(8080, () => {
-  console.log('starting')
+  console.log('Server listening on port 8080');
 });
 
 // TypeScript: import ytdl from 'ytdl-core'; with --esModuleInterop
