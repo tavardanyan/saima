@@ -18,12 +18,9 @@
 
 // import 'TOOL';
 
-import http from 'http';
 import app from './src/app';
 
-const server = http.createServer(app);
-
-server.listen(8080, () => {
+app.listen(8080, () => {
   console.log('Server listening on port 8080');
 });
 
@@ -33,5 +30,3 @@ server.listen(8080, () => {
 
 // Call the package method to test
 // myPackage.method();
-
-export default server;
