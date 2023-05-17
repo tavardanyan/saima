@@ -22,6 +22,10 @@ function VideoDownloading() {
   const [videoUrl, setVideoUrl] = useState<string | null>();
   const { key } = useParams<{ key: string }>();
 
+  const setErrorResponseAsMessage = (errors: ErrorObject[]) =>{
+    setErrorMessage(errors.map((err: ErrorObject) => `(${err.where}) - ${err.message}`).join('\n'));
+  }
+
   const handleDownload = async () => {
     if (!videoUrl) return;
 
@@ -78,13 +82,14 @@ function VideoDownloading() {
           setVideoUrl(response.data.data.url);
           setErrorMessage(null);
         } else {
-          if (response.data.errors) {
-            setErrorMessage(response.data.errors.map((err: ErrorObject) => err.where + ": " + err.message).join('\n'));
-          }
+          response.data.errors && setErrorResponseAsMessage(response.data.errors);
         }
       } catch (error: any) {
         setVideoUrl(null);
-        setErrorMessage(error.response?.data?.message ?? 'An error occurred');
+        setErrorResponseAsMessage(error.response?.data.errors || [{
+          where: 'server',
+          message: 'Something went wrong'
+        }]);
       }
     }
     key && fetchVideoData();
