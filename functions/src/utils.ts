@@ -17,7 +17,7 @@ export const response = (ctx: Context, { status, message, data, errors }: Respon
 }
 
 export const isYoutubeUrl = (url: string): boolean => {
-  const youtubeRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([\w-]{11})$/;
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?([^#\s?]*).*/;
   return youtubeRegex.test(url);
 }
 
