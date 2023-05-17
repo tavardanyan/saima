@@ -11,7 +11,7 @@ const routes: Route[] = [
     handler: services.getUrl
   },
   {
-    url: '/:key',
+    url: '/',
     method: Methods.POST,
     handler: services.createUrl
   }
