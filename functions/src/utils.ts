@@ -15,3 +15,13 @@ export const response = (ctx: Context, { status, message, data, errors }: Respon
     errors
   };
 }
+
+export const isYoutubeUrl = (url: string): boolean => {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([\w-]{11})$/;
+  return youtubeRegex.test(url);
+}
+
+export const isCourseraUrl = (url: string): boolean => {
+  const courseraRegex = /^(https?:\/\/)?(www\.)?coursera\.org\/learn\/[\w-]+\/lecture\/[\w-]+$/;
+  return courseraRegex.test(url);
+}

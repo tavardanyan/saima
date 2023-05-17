@@ -1,20 +1,23 @@
 import { Context } from 'koa';
 import ytdl from 'ytdl-core';
-import { response } from './utils';
-import { create, get } from './repository';
-import { VideoSources } from './types';
+import { isYoutubeUrl, response } from './utils';
+import { create } from './repository';
+import { Video } from './types';
 
 export async function getUrl(ctx: Context) {
-  const key: string = ctx.params.key;
-  const data = await get(key);
-  if (data) {
+  const data: Video = ctx.state.video;
+  let url: string;
+  if (isYoutubeUrl(data.url)) {
     const { formats } = await ytdl.getBasicInfo(data.url);
     const video = formats.find((format: { mimeType?: string }) => format.mimeType?.split(';')[0] === 'video/mp4');
-    response(ctx, {
-      message: 'test',
-      data: { url: video?.url },
-    })
+    url = video ? video.url : '';
+  } else {
+    url = '';
   }
+  response(ctx, {
+    message: 'test',
+    data: { url },
+  });
 }
 
 export async function createUrl(ctx: Context) {

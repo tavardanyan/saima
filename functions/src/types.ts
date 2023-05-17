@@ -7,6 +7,7 @@ export type Route = {
   method: Methods,
   url: string,
   handler: any;
+  validator: any;
 }
 
 export type Response = {
@@ -26,4 +27,9 @@ export type Video = {
   url: string;
   source?: VideoSources;
   time: number;
+}
+
+export type ValidationErrorObject = { 
+  where: string;
+  message: string;
 }
