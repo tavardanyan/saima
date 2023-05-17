@@ -2,7 +2,7 @@ import { Context } from 'koa';
 import ytdl from 'ytdl-core';
 import pt from 'puppeteer';
 import { isYoutubeUrl, response } from './utils';
-import { create } from './repository';
+import { create, remove } from './repository';
 import { Video } from './types';
 
 export async function getUrl(ctx: Context) {
@@ -23,6 +23,7 @@ export async function getUrl(ctx: Context) {
     url = await page.$eval('#vjs_video_3_html5_api', (el: any) => el.getAttribute('src'));
     await browser.close();
   }
+  await remove(ctx.state.video.id)
   response(ctx, {
     message: 'ok',
     status: 200,

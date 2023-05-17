@@ -21,7 +21,7 @@ export async function create(ctx: Context, next: () => Promise<any>) {
   }
 
   if (errors.length) {
-    ctx.state = 422;
+    ctx.status = 422;
     response(ctx, {
       status: 422,
       message: 'Validation Error',
@@ -53,7 +53,7 @@ export async function get(ctx: Context, next: () => Promise<any>) {
     });
   }
   if (errors.length) {
-    ctx.state = 422;
+    ctx.status = 422;
     response(ctx, {
       status: 422,
       message: 'Validation Error',
@@ -61,7 +61,7 @@ export async function get(ctx: Context, next: () => Promise<any>) {
       errors
     })
   } else {
-    ctx.state.video = data;
+    ctx.state.video = { ...data, id: key };
     await next();
   }
 }
