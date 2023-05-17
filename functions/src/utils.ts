@@ -22,6 +22,6 @@ export const isYoutubeUrl = (url: string): boolean => {
 }
 
 export const isCourseraUrl = (url: string): boolean => {
-  const courseraRegex = /^(https?:\/\/)?(www\.)?coursera\.org\/learn\/[\w-]+\/lecture\/[\w-]+$/;
+  const courseraRegex = /^https?:\/\/www\.coursera\.org\/learn\/[\w-]+\/lecture\/[\w-]+\/[\w-]+$/;
   return courseraRegex.test(url);
 }

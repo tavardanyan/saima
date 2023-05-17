@@ -5,12 +5,12 @@ import { get as getDoc } from './repository';
 
 export async function create(ctx: Context, next: () => Promise<any>) {
   const errors: ValidationErrorObject[] = [];
-  const body: { url: string } = ctx.body as { url: string };
-  if (body.url) {
-    if (!isYoutubeUrl(body.url) || !isCourseraUrl(body.url)) {
+  const url: string | undefined = (ctx.request.body as { url?: string })?.url;
+  if (url) {
+    if (!(isYoutubeUrl(url) || isCourseraUrl(url))) {
       errors.push({
-        where: 'body',
-        message: 'url is required in body'
+        where: 'url',
+        message: 'url is not valid Youtube or Coursera link',
       });
     }
   } else {
@@ -29,7 +29,7 @@ export async function create(ctx: Context, next: () => Promise<any>) {
       errors
     })
   } else {
-    next();
+    await next();
   }
 }
 
@@ -62,6 +62,6 @@ export async function get(ctx: Context, next: () => Promise<any>) {
     })
   } else {
     ctx.state.video = data;
-    next();
+    await next();
   }
 }
