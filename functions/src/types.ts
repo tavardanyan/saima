@@ -24,6 +24,6 @@ export enum VideoSources {
 export type Video = {
   id?: string;
   url: string;
-  source: VideoSources;
+  source?: VideoSources;
   time: number;
 }

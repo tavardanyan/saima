@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, addDoc, getDoc } from "firebase/firestore";
 import { Video } from "./types";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,5 +28,15 @@ export const create = async (data: Video) => {
     return docRef.id;
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+};
+
+export const get = async (id: string) => {
+  try {
+    const docRef = await doc(firestore, "videos", id);
+    const docSnap = await getDoc(docRef);;
+    return docSnap.exists() ? docSnap.data() : null;
+  } catch (e) {
+    console.error("Error getting document: ", e);
   }
 };
