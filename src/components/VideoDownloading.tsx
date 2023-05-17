@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { API_URL, DEFAULT_FILE_NAME } from '../constants';
+import { API_URL, DEFAULT_FILE_NAME, CHUNK_SIZE } from '../constants';
 
 type ErrorObject = {
   where: string;
@@ -15,7 +15,6 @@ interface VideoData {
 }
 
 function VideoDownloading() {
-  const CHUNK_SIZE = 1024 * 64; // 64KB chunk size
   const [isDownloading, setIsDownloading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -102,7 +101,9 @@ function VideoDownloading() {
   return (
     <div>
       {isDownloading ? (
-        <progress value={progress} />
+        <>
+          <progress value={progress} /><span>{ (progress * 100).toFixed(2) }%</span>
+        </>
       ) : (
         <button onClick={handleDownload}>Download Video</button>
       )}
