@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { API_URL } from '../constants';
 
 type SuccessData = {
   id: string;
@@ -24,8 +25,7 @@ function LinkCreation() {
   const [message, setMessage] = useState<string>("");
 
   const handleSubmit = async () => {
-    const apiUrl: string = process.env.REACT_APP_API_URL as string;
-    const response = await axios.post<Response>(apiUrl, { url });
+    const response = await axios.post<Response>(API_URL, { url });
     if (response.data.errors) {
       console.log(response.data)
       const msg = response.data.errors.map((err: ErrorResponse) => `${err.where}: ${err.message}`).join('\n');

@@ -13,7 +13,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route index element={<LinkCreation />} />
-      <Route path="*" element={<VideoDownloading />} />
+      <Route path="/:key" element={<VideoDownloading />} />
     </Routes>
   </BrowserRouter>
 );
